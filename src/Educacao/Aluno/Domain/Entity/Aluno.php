@@ -58,6 +58,16 @@ class Aluno
         return $this->ra;
     }
 
+    public function arquivado() : bool
+    {
+        return (bool)$this->arquivado;
+    }
+
+    public function getDataArquivado() : ?\DateTimeImmutable
+    {
+        return $this->dataArquivado;
+    }
+
     /**
      * @return NomeMae
      */
@@ -74,7 +84,7 @@ class Aluno
     }
 
 
-    public static function novoAluno(CadastraAlunoDto $cadastraAlunoDto) : self
+    public static function novoAluno(CadastraAlunoDto $cadastraAlunoDto, array $arrAluno=[]) : self
     {
         $instance = new self();
 
@@ -82,6 +92,18 @@ class Aluno
         $instance->nome     = $cadastraAlunoDto->getNome();
         $instance->ra       = $cadastraAlunoDto->getRa();
         $instance->nomeMae  = $cadastraAlunoDto->getNomeMae();
+
+        if (isset($arrAluno['id'])) {
+            $instance->id = IdAluno::fromString($arrAluno['id']);
+        }
+
+        if (isset($arrAluno['arquivado'])) {
+            $instance->arquivado = $arrAluno['arquivado'];
+        }
+
+        if (isset($arrAluno['data_arquivado'])) {
+            $instance->dataArquivado = new \DateTimeImmutable($arrAluno['data_arquivado']);
+        }
 
         return $instance;
     }

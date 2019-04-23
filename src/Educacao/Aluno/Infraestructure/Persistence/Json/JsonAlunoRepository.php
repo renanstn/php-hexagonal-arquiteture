@@ -28,13 +28,15 @@ class JsonAlunoRepository implements AlunoRepository
         $alunos = $this->getJsonDataAsArray();
 
         $alunoJson = [
-            'id'        => $aluno->getId()->toString(),
-            'nome'      => $aluno->getNome()->toString(),
-            'nome_mae'  => $aluno->getNomeMae()->toString(),
-            'ra'        => $aluno->getRa()->toString(),
+            'id'                => $aluno->getId()->toString(),
+            'nome'              => $aluno->getNome()->toString(),
+            'nome_mae'          => $aluno->getNomeMae()->toString(),
+            'ra'                => $aluno->getRa()->toString(),
+            'arquivado'         => $aluno->arquivado(),
+            'data_arquivado'    => $aluno->getDataArquivado() ? $aluno->getDataArquivado()->format('Y-m-d H:i:s') : null,
         ];
 
-        $alunos[$alunosJson['id']] = $alunoJson;
+        $alunos[$alunoJson['id']] = $alunoJson;
 
         \file_put_contents($this->filePath, json_encode($alunos));
     }
@@ -46,7 +48,7 @@ class JsonAlunoRepository implements AlunoRepository
 
         foreach ($arrAlunos as $arrAluno) {
             if ($arrAluno['id'] === $id->toString()) {
-                return Aluno::novoAluno(CadastraAlunoDto::fromArray($arrAluno));
+                return $this->createAlunoFromArray($arrAluno);
             }
         }
 
@@ -62,7 +64,7 @@ class JsonAlunoRepository implements AlunoRepository
 
         foreach ($arrAlunos as $arrAluno) {
             if ($arrAluno['ra'] === $ra->toString()) {
-                return Aluno::novoAluno(CadastraAlunoDto::fromArray($arrAluno));
+                return $this->createAlunoFromArray($arrAluno);
             }
         }
 
@@ -77,10 +79,16 @@ class JsonAlunoRepository implements AlunoRepository
         $alunos = [];
 
         foreach ($arrAlunos as $arrAluno) {
-            $alunos[] = Aluno::novoAluno(CadastraAlunoDto::fromArray($arrAluno));
+            $alunos[] = $this->createAlunoFromArray($arrAluno);
         }
 
         return $alunos;
+    }
+
+
+    private function createAlunoFromArray(array $arrAluno) : Aluno
+    {
+        return Aluno::novoAluno(CadastraAlunoDto::fromArray($arrAluno), $arrAluno);
     }
 
 
