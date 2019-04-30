@@ -1,6 +1,6 @@
 <?php
 
-namespace Acruxx\Educacao\Aluno\Infraestructure\Persistence\Json;
+namespace Acruxx\Educacao\Aluno\Infrastructure\Persistence\Json;
 
 use Acruxx\Educacao\Aluno\Domain\Entity\Aluno;
 use Acruxx\Educacao\Aluno\Domain\Repository\AlunoRepository;

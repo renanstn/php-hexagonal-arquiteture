@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use Acruxx\Educacao\Aluno\Domain\Service\CadastraAluno;
 use Acruxx\Educacao\Aluno\Domain\Service\ArquivaAluno;
-use Acruxx\Educacao\Aluno\Infraestructure\Persistence\Json\JsonAlunoRepository;
+use Acruxx\Educacao\Aluno\Infrastructure\Persistence\Json\JsonAlunoRepository;
 use Acruxx\Educacao\Aluno\Domain\Dto\CadastraAlunoDto;
 use Acruxx\Educacao\Aluno\Domain\ValueObject\IdAluno;
 

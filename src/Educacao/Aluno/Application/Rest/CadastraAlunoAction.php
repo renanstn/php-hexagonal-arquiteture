@@ -4,7 +4,7 @@ namespace Acruxx\Educacao\Aluno\Application\Rest;
 
 use Acruxx\Educacao\Aluno\Domain\Dto\CadastraAlunoDto;
 use Acruxx\Educacao\Aluno\Domain\Service\CadastraAluno;
-use Acruxx\Educacao\Aluno\Infraestructure\Persistence\Json\JsonAlunoRepository;
+use Acruxx\Educacao\Aluno\Infrastructure\Persistence\Json\JsonAlunoRepository;
 use Slim\Http\Request;
 use Slim\Http\Response;
 
