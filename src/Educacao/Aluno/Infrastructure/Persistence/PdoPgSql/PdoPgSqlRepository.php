@@ -53,12 +53,12 @@ class PdoPgSqlRepository implements AlunoRepository
 
         $dataArquivado = $aluno->getDataArquivado() ? $aluno->getDataArquivado()->format('Y-m-d H:i:s') : null;
 
-        $stm->bindParam(':id', $aluno->getId()->toString());
-        $stm->bindParam(':nome', $aluno->getNome()->toString());
-        $stm->bindParam(':nome_mae', $aluno->getNomeMae()->toString());
-        $stm->bindParam(':ra', $aluno->getRa()->toString());
+        $stm->bindParam(':id', $aluno->getId()->toString(), \PDO::PARAM_STR);
+        $stm->bindParam(':nome', $aluno->getNome()->toString(), \PDO::PARAM_STR);
+        $stm->bindParam(':nome_mae', $aluno->getNomeMae()->toString(), \PDO::PARAM_STR);
+        $stm->bindParam(':ra', $aluno->getRa()->toString(), \PDO::PARAM_STR);
         $stm->bindParam(':arquivado', $aluno->arquivado(), \PDO::PARAM_BOOL);
-        $stm->bindParam(':data_arquivado', $dataArquivado);
+        $stm->bindParam(':data_arquivado', $dataArquivado, \PDO::PARAM_STR);
 
         $stm->execute();
     }

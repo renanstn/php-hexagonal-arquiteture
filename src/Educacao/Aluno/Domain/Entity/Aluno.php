@@ -7,8 +7,10 @@ use Acruxx\Educacao\Aluno\Domain\ValueObject\IdAluno;
 use Acruxx\Educacao\Aluno\Domain\ValueObject\Nome;
 use Acruxx\Educacao\Aluno\Domain\ValueObject\Nomemae;
 use Acruxx\Educacao\Aluno\Domain\ValueObject\RA;
+use Acruxx\Educacao\Aluno\Domain\Event\AlunoFoiCadastrado;
+use Acruxx\Educacao\Aluno\Domain\Event\AlunoFoiArquivado;
 
-class Aluno
+class Aluno extends Entity
 {
     /** @var IdAluno */
     private $id;
@@ -81,6 +83,8 @@ class Aluno
     {
         $this->arquivado        = true;
         $this->dataArquivado    = new \DateTimeImmutable();
+
+        $this->raise(new AlunoFoiArquivado);
     }
 
 
@@ -104,6 +108,8 @@ class Aluno
         if (isset($arrAluno['data_arquivado'])) {
             $instance->dataArquivado = new \DateTimeImmutable($arrAluno['data_arquivado']);
         }
+
+        $instance->raise(new AlunoFoiCadastrado);
 
         return $instance;
     }
