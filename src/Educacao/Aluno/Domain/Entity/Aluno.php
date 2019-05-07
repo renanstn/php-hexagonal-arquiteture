@@ -84,7 +84,7 @@ class Aluno extends Entity
         $this->arquivado        = true;
         $this->dataArquivado    = new \DateTimeImmutable();
 
-        $this->raise(new AlunoFoiArquivado);
+        $this->raise(new AlunoFoiArquivado($this->id));
     }
 
 
@@ -109,7 +109,12 @@ class Aluno extends Entity
             $instance->dataArquivado = new \DateTimeImmutable($arrAluno['data_arquivado']);
         }
 
-        $instance->raise(new AlunoFoiCadastrado);
+        if (!count($arrAluno)) {
+            $instance->raise(new AlunoFoiCadastrado(
+                $instance->id,
+                $instance->nome
+            ));
+        }
 
         return $instance;
     }

@@ -7,7 +7,9 @@ use Acruxx\Educacao\Aluno\Infrastructure\Persistence\Json\JsonAlunoRepository;
 use Acruxx\Educacao\Aluno\Infrastructure\Persistence\PdoPgSql\PdoPgSqlRepository;
 use Acruxx\Educacao\Aluno\Domain\Event\Dispatcher;
 use Acruxx\Educacao\Aluno\Domain\Event\AlunoFoiCadastrado;
+use Acruxx\Educacao\Aluno\Domain\Event\AlunoFoiArquivado;
 use Acruxx\Educacao\Aluno\Domain\Listener\NotificaMaeDoAlunoListener;
+use Acruxx\Educacao\Aluno\Domain\Listener\AtualizaDemandaAlunoListener;
 use Acruxx\Educacao\Aluno\Infrastructure\Event\AcruxxDispatcher;
 use Psr\Container\ContainerInterface;
 
@@ -43,6 +45,9 @@ $container[Dispatcher::class] = static function() {
     
     $dispatcher = new AcruxxDispatcher();
     $dispatcher->attach(AlunoFoiCadastrado::class, new NotificaMaeDoAlunoListener());
+    $dispatcher->attach(AlunoFoiCadastrado::class, new AtualizaDemandaAlunoListener());
+
+    $dispatcher->attach(AlunoFoiArquivado::class, new NotificaMaeDoAlunoListener());
 
     return $dispatcher;
 };

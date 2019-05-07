@@ -11,7 +11,7 @@ class AcruxxDispatcher implements Dispatcher
 
     public function attach(string $eventName, Listener $listener) : void
     {
-        $this->listeners[$eventName] = $listener;
+        $this->listeners[$eventName][] = $listener;
     }
 
     public function dispatch(array $events) : void
@@ -25,8 +25,12 @@ class AcruxxDispatcher implements Dispatcher
     {
         $eventName = get_class($event);
 
-        if (isset($this->listeners[$eventName])) {
-            $this->listeners[$eventName]->handle($event);
+        if (!isset($this->listeners[$eventName])) {
+            return;
+        }
+        
+        foreach ($this->listeners[$eventName] as $eventListener) {
+            $eventListener->handle($event);
         }
     }
 }
