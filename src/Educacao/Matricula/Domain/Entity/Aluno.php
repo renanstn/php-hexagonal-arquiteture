@@ -12,4 +12,13 @@ class Aluno
     {
         return $this->id;
     }
+
+    public static function populate(array $result) : self
+    {
+        $instance = new self;
+
+        $instance->id = IdAluno::fromString($result['id_aluno']);
+
+        return $instance;
+    }
 }

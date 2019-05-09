@@ -8,8 +8,17 @@ class Classe
 {
     private $id;
 
-    public function getId() : IdAluno
+    public function getId() : IdClasse
     {
         return $this->id;
+    }
+
+    public static function populate(array $result) : self
+    {
+        $instance = new self;
+
+        $instance->id = IdClasse::fromString($result['id_classe']);
+
+        return $instance;
     }
 }
