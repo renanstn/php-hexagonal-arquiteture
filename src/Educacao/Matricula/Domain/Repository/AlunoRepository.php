@@ -8,4 +8,5 @@ use Acruxx\Educacao\Matricula\Domain\ValueObject\IdAluno;
 interface AlunoRepository
 {
     public function getById(IdAluno $id) : Aluno;
+    public function findAll() : array;
 }

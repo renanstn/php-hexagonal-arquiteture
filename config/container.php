@@ -11,9 +11,25 @@ use Acruxx\Educacao\Aluno\Domain\Event\AlunoFoiArquivado;
 use Acruxx\Educacao\Aluno\Domain\Listener\NotificaMaeDoAlunoListener;
 use Acruxx\Educacao\Aluno\Domain\Listener\AtualizaDemandaAlunoListener;
 use Acruxx\Educacao\Aluno\Infrastructure\Event\AcruxxDispatcher;
+use Acruxx\Educacao\Matricula;
+
 use Psr\Container\ContainerInterface;
 
 $container = new \Slim\Container();
+
+// Register component on container
+$container['view'] = function ($container) {
+    $view = new \Slim\Views\Twig(__DIR__ . '/../res/templates', [
+        'cache' => false //__DIR__ . '/../data/cache'
+    ]);
+
+    // Instantiate and add Slim specific extension
+    $router = $container->get('router');
+    $uri = \Slim\Http\Uri::createFromEnvironment(new \Slim\Http\Environment($_SERVER));
+    $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
+
+    return $view;
+};
 
 $container[CadastraAluno::class] = static function (ContainerInterface $container) {
 
@@ -50,6 +66,19 @@ $container[Dispatcher::class] = static function() {
     $dispatcher->attach(AlunoFoiArquivado::class, new NotificaMaeDoAlunoListener());
 
     return $dispatcher;
+};
+
+/**
+ * Contexto Matrícula
+ */
+$container[Matricula\Domain\Repository\AlunoRepository::class] = static function (ContainerInterface $container) {
+    return  new Matricula\Infrastructure\Persistence\Component\ComponentAlunoRepository(
+        $container->get(AlunoRepository::class)
+    );
+};
+
+$container[Matricula\Domain\Repository\ClasseRepository::class] = static function (ContainerInterface $container) {
+    return new Matricula\Infrastructure\Persistence\Fake\FakeClasseRepository();
 };
 
 $container['pdo-connection'] = static function () {

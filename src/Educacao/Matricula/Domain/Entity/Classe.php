@@ -3,6 +3,7 @@
 namespace Acruxx\Educacao\Matricula\Domain\Entity;
 
 use Acruxx\Educacao\Matricula\Domain\ValueObject\IdAluno;
+use Acruxx\Educacao\Matricula\Domain\ValueObject\IdClasse;
 
 class Classe
 {

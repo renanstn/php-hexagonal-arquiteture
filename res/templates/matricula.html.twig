@@ -1,0 +1,18 @@
+<h1>Matricula</h1>
+
+<form action="/matricula/insert" method="POST">
+    <select name="id_aluno" id="id_aluno">
+        {% for aluno in alunos %}
+        <option value="{{ aluno.getId().toString() }}">{{ aluno.getId().toString() }}</option>
+        {% endfor %}
+    </select>
+
+    <label>Classe</label>
+    <select name="id_classe" id="id_classe">
+        {% for classe in classes %}
+        <option value="{{ classe.getId().toString() }}">{{ classe.getId().toString() }}</option>
+        {% endfor %}
+    </select>
+
+    <input type="submit" value="Matricular">
+</form>

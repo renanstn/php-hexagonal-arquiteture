@@ -15,7 +15,7 @@ final class IdAluno
 
     public function toString() : string
     {
-        return $this->id->toString();
+        return $this->id;
     }
 
     public static function fromString(string $id) : self

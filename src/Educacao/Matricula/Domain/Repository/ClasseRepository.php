@@ -8,4 +8,5 @@ use Acruxx\Educacao\Matricula\Domain\ValueObject\IdClasse;
 interface ClasseRepository
 {
     public function getById(IdClasse $id) : Classe;
+    public function findAll() : array;
 }

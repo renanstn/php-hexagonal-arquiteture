@@ -2,7 +2,9 @@
     "require": {
         "beberlei/assert": "^3.2",
         "slim/slim": "^3.12",
-        "ramsey/uuid": "^3.8"
+        "ramsey/uuid": "^3.8",
+        "slim/twig-view": "^2.5",
+        "deoliveiralucas/copy-object-attributes-values": "^1.0"
     },
     "autoload" : {
         "psr-4" : {
