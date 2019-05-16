@@ -3,14 +3,14 @@
 <form action="/matricula/insert" method="POST">
     <select name="id_aluno" id="id_aluno">
         {% for aluno in alunos %}
-        <option value="{{ aluno.getId().toString() }}">{{ aluno.getId().toString() }}</option>
+        <option value="{{ aluno.getId().toString() }}">{{ aluno.getNome().toString() }}</option>
         {% endfor %}
     </select>
 
     <label>Classe</label>
     <select name="id_classe" id="id_classe">
         {% for classe in classes %}
-        <option value="{{ classe.getId().toString() }}">{{ classe.getId().toString() }}</option>
+        <option value="{{ classe.getId().toString() }}">{{ classe.getNome().toString() }}</option>
         {% endfor %}
     </select>
 

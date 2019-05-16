@@ -2,7 +2,9 @@
 
 namespace Acruxx\Educacao\Matricula\Infrastructure\Persistence\PdoPgSql;
 
-use Acruxx\Educacao\Matricula\Domain\Repository;
+use Acruxx\Educacao\Matricula\Domain\Repository\MatriculaRepository;
+use Acruxx\Educacao\Matricula\Domain\Entity\Matricula;
+use Acruxx\Educacao\Matricula\Domain\ValueObject\IdMatricula;
 
 class PdoPgSqlMatriculaRepository implements MatriculaRepository
 {
@@ -16,7 +18,7 @@ class PdoPgSqlMatriculaRepository implements MatriculaRepository
 
     public function store(Matricula $matricula) : void
     {
-        if ($this->findByRA($aluno->getId())) { /* deveria ser um findById */
+        if ($this->findById($matricula->getId())) { /* deveria ser um findById */
             $stm = $this->pdo->prepare('
                 UPDATE 
                     matriculas
@@ -63,7 +65,14 @@ class PdoPgSqlMatriculaRepository implements MatriculaRepository
     {
         $id = $id->toString();
 
-        $stm = $this->pdo->prepare('SELECT * FROM matriculas WHERE id=:id');
+        $stm = $this->pdo->prepare('
+            SELECT 
+                * 
+            FROM
+                matriculas
+            WHERE 
+                id=:id
+        ');
         $stm->bindParam(':id', $id, \PDO::PARAM_STR);
         $stm->execute();
 

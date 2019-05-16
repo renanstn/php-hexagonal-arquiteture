@@ -71,6 +71,12 @@ $container[Dispatcher::class] = static function() {
 /**
  * Contexto Matrícula
  */
+$container[Matricula\Domain\Repository\MatriculaRepository::class] = static function (ContainerInterface $container) {
+    return  new Matricula\Infrastructure\Persistence\PdoPgSql\PdoPgSqlMatriculaRepository(
+        $container->get('pdo-connection')
+    );
+};
+
 $container[Matricula\Domain\Repository\AlunoRepository::class] = static function (ContainerInterface $container) {
     return  new Matricula\Infrastructure\Persistence\Component\ComponentAlunoRepository(
         $container->get(AlunoRepository::class)
@@ -81,6 +87,17 @@ $container[Matricula\Domain\Repository\ClasseRepository::class] = static functio
     return new Matricula\Infrastructure\Persistence\Fake\FakeClasseRepository();
 };
 
+$container[Matricula\Domain\Service\NovaMatriculaAluno::class] = static function (ContainerInterface $container) {
+    return new Matricula\Domain\Service\NovaMatriculaAluno(
+        $container->get(Matricula\Domain\Repository\MatriculaRepository::class),
+        $container->get(Matricula\Domain\Repository\AlunoRepository::class),
+        $container->get(Matricula\Domain\Repository\ClasseRepository::class)
+    );
+};
+
+/**
+ * Config Aplicação
+ */
 $container['pdo-connection'] = static function () {
     $pdo = new \PDO('pgsql:host=postgres;dbname=php;user=root;password=123');
     $pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);

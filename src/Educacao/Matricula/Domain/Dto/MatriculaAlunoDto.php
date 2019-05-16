@@ -27,8 +27,8 @@ final class MatriculaAlunoDto
     public static function fromArray(array $params) : self
     {
         $instance = new self;
-        $instance->idAluno = IdAluno::fromString($param['id_aluno'] ?? '');
-        $instance->idClasse = IdClasse::fromString($param['id_classe'] ?? '');
+        $instance->idAluno = IdAluno::fromString($params['id_aluno'] ?? '');
+        $instance->idClasse = IdClasse::fromString($params['id_classe'] ?? '');
 
         return $instance;
     }

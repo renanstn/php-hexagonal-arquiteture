@@ -6,8 +6,9 @@ use Acruxx\Educacao\Matricula\Domain\Repository\MatriculaRepository;
 use Acruxx\Educacao\Matricula\Domain\Repository\AlunoRepository;
 use Acruxx\Educacao\Matricula\Domain\Repository\ClasseRepository;
 use Acruxx\Educacao\Matricula\Domain\Entity\Matricula;
+use Acruxx\Educacao\Matricula\Domain\Dto\MatriculaAlunoDto;
 
-final class MatriculaAluno
+final class NovaMatriculaAluno
 {
     private $matriculaRepository;
     private $alunoRepository;
