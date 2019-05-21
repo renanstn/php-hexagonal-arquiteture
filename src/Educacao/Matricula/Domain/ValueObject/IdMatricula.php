@@ -18,7 +18,7 @@ final class IdMatricula
         return $this->id->toString();
     }
 
-    public function fromString(string $thisid) : self
+    public function fromString(string $id) : self
     {
         Assertion::notBlank($id);
 

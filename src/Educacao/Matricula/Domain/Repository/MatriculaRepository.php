@@ -7,4 +7,5 @@ use Acruxx\Educacao\Matricula\Domain\Entity\Matricula;
 interface MatriculaRepository
 {
     public function store(Matricula $matricula) : void;
+    public function findAll() : array;
 }

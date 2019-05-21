@@ -2,6 +2,8 @@
 
 namespace Acruxx\Educacao\Matricula\Domain\ValueObject;
 
+use Assert\Assertion;
+
 final class DataMatricula
 {
     private $data;
@@ -12,7 +14,7 @@ final class DataMatricula
 
     public function toString() : string
     {
-        return $this->id->format('Y-m-d H:i:s');
+        return $this->data->format('Y-m-d H:i:s');
     }
 
     public function toDateTimeImmutable() : \DateTimeImmutable
@@ -24,6 +26,16 @@ final class DataMatricula
     {
         $instance = new self();
         $instance->data = new \DateTimeImmutable('now');
+
+        return $instance;
+    }
+
+    public static function fromString(string $data) : self
+    {
+        Assertion::date($data, 'Y-m-d H:i:s');
+
+        $instance = new self();
+        $instance->data = new \DateTimeImmutable($data);
 
         return $instance;
     }

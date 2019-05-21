@@ -15,7 +15,11 @@ use Acruxx\Educacao\Matricula;
 
 use Psr\Container\ContainerInterface;
 
-$container = new \Slim\Container();
+$config['settings'] = [
+    "displayErrorDetails" => true
+];
+
+$container = new \Slim\Container($config);
 
 // Register component on container
 $container['view'] = function ($container) {
@@ -29,6 +33,12 @@ $container['view'] = function ($container) {
     $view->addExtension(new \Slim\Views\TwigExtension($router, $uri));
 
     return $view;
+};
+
+session_start();
+
+$container['flash'] = function() {
+    return new \Slim\Flash\Messages();
 };
 
 $container[CadastraAluno::class] = static function (ContainerInterface $container) {
