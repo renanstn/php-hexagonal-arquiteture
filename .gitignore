@@ -1,2 +1,4 @@
 vendor
 data/storage/alunos.json
+test/_reports
+*.cache
