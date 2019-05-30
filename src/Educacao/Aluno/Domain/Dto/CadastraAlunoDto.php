@@ -7,7 +7,7 @@ use Acruxx\Educacao\Aluno\Domain\ValueObject\RA;
 use Acruxx\Educacao\Aluno\Domain\ValueObject\NomeMae;
 use Assert\Assertion;
 
-final class CadastraAlunoDto
+class CadastraAlunoDto
 {
     private $nome;
     private $ra;

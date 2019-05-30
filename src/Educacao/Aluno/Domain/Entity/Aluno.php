@@ -32,9 +32,7 @@ class Aluno extends Entity
 
 
     private function __construct()
-    {
-
-    }
+    {}
 
     /**
      * @return IdAluno
